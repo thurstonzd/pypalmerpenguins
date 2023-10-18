@@ -11,6 +11,4 @@ for uri in uris:
     df = pd.read_csv(uri)
     data_frames.append(df)
 
-df = pd.concat(data_frames)
-
-print(df)
+penguins = pd.concat(data_frames)
