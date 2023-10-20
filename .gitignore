@@ -9,3 +9,4 @@ docs
 .vscode/
 test/
 test.py
+*.pyc
