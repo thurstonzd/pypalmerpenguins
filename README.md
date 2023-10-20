@@ -94,6 +94,22 @@ penguins %>%
 
 Penguins are fun to visualize! For example:
 
+```python
+from plotnine import *
+
+(ggplot(
+    data=penguins,
+    mapping=aes(x='flipper_length_mm', y='body_mass_g'))
+    + geom_point(mapping=aes(color='species', shape='species'))
+    + labs(
+        title="Penguin size, Palmer Station LTER",
+        subtitle="Flipper length and body mass for Adelie, Chinstrap, and Gentoo Penguins",
+        x="Flipper Length (mm)", y="Body mass (g)",
+        color="Penguin Species", shape="Penguin Species"
+     )
+)
+```
+
 <img src="man/figures/README-mass-flipper-1.png" width="75%" style="display: block; margin: auto;" />
 
 <img src="man/figures/README-flipper-hist-1.png" width="75%" style="display: block; margin: auto;" />
