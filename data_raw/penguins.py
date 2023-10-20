@@ -32,8 +32,10 @@ penguins = (
     clean_columns(penguins_raw).assign(
         species=lambda x: x.species.apply(species_short),
         sex=lambda x: x.sex.apply(str.lower),
-        date_egg=lambda x: x.date_egg.apply(dateparse)
+        date_egg=lambda x: x.date_egg.apply(dateparse),
+        flipper_length_mm = lambda x: pd.to_numeric(x.flipper_length_mm, errors='coerce'),
+        body_mass_g=lambda x: pd.to_numeric(x.body_mass_g, errors='coerce')
     ).assign(
         year=lambda x: x.date_egg.apply(lambda a: a.year)
-    )
+    ).re
 )
