@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 
 import pandas as pd
 from skimpy import clean_columns
@@ -10,14 +11,30 @@ uri_chinstrap = "https://portal.edirepository.org/nis/dataviewer?packageid=knb-l
 uris = [uri_chinstrap, uri_adelie, uri_gentoo]
 data_frames = []
 
+dateparse = lambda x: datetime.strptime(x, '%Y-%m-%d')
+
 for uri in uris:
-    df = pd.read_csv(uri, keep_default_na=False, na_values=["", "NA", "."])
+    df = pd.read_csv(
+        uri, 
+        keep_default_na=False, 
+        na_values=["", "NA", "."]
+        )
     data_frames.append(df)
 
-def species_short(obs):
-    return re.sub(r'\s.*', '', obs.species)
+def species_short(s):
+    return re.sub(r'\s.*', '', s)
 
-df = clean_columns(pd.concat(data_frames))
-penguins = (df
-    .assign(species=species_short)
+df = pd.concat(data_frames).fillna('')
+
+df.to_csv(r"D:\Documents\programming\pypalmerpenguins\penguins_raw.csv")
+
+df = clean_columns(df)
+penguins = (
+    df.assign(
+        species=lambda x: x.species.apply(species_short),
+        sex=lambda x: x.sex.apply(str.lower),
+        date_egg=lambda x: x.date_egg.apply(dateparse)
+    ).assign(
+        year=lambda x: x.date_egg.apply(lambda a: a.year)
+    )
 )
