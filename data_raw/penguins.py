@@ -24,13 +24,12 @@ for uri in uris:
 def species_short(s):
     return re.sub(r'\s.*', '', s)
 
-df = pd.concat(data_frames).fillna('')
+penguins_raw = pd.concat(data_frames).fillna('')
 
-df.to_csv(r"D:\Documents\programming\pypalmerpenguins\penguins_raw.csv")
+penguins_raw.to_csv(r"D:\Documents\programming\pypalmerpenguins\penguins_raw.csv")
 
-df = clean_columns(df)
 penguins = (
-    df.assign(
+    clean_columns(penguins_raw).assign(
         species=lambda x: x.species.apply(species_short),
         sex=lambda x: x.sex.apply(str.lower),
         date_egg=lambda x: x.date_egg.apply(dateparse)
