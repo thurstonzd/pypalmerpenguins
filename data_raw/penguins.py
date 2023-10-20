@@ -26,7 +26,7 @@ def species_short(s):
 
 penguins_raw = pd.concat(data_frames).fillna('')
 
-penguins_raw.to_csv(r"D:\Documents\programming\pypalmerpenguins\penguins_raw.csv")
+penguins_raw.to_csv(r"inst/extdata/penguins_raw.csv")
 
 penguins = (
     clean_columns(penguins_raw).assign(
@@ -52,3 +52,5 @@ penguins = (
     'body_mass_g', 
     'sex', 
     'year']]
+
+penguins.to_csv(r"inst/extdata/penguins.csv")
