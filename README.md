@@ -3,34 +3,14 @@
 
 # palmerpenguins <a href='https://allisonhorst.github.io/palmerpenguins/'><img src='man/figures/logo.png' align="right" height="138.5" /></a>
 
-<!-- badges: start -->
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3960218.svg)](https://doi.org/10.5281/zenodo.3960218)
-[![CRAN](https://www.r-pkg.org/badges/version/palmerpenguins)](https://cran.r-project.org/package=palmerpenguins)
-
-<!-- badges: end -->
-
-The goal of palmerpenguins is to provide a great dataset for data
-exploration & visualization, as an alternative to `iris`.
+pypalmerpenguins is an attempt to convert the original palmerpenguins to python using pandas et. al. For the original R repository, see 
+allisonhorst/palmerpenguins.
 
 <img src="man/figures/README-flipper-bill-1.png" width="75%" style="display: block; margin: auto;" />
 
 ## Installation
 
-You can install the released version of palmerpenguins from
-[CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("palmerpenguins")
-```
-
-To install the development version from [GitHub](https://github.com/)
-use:
-
-``` r
-# install.packages("remotes")
-remotes::install_github("allisonhorst/palmerpenguins")
-```
+TODO
 
 ## About the data
 
@@ -48,11 +28,9 @@ data(package = 'palmerpenguins')
 ```
 
 One is called `penguins`, and is a simplified version of the raw data;
-see `?penguins` for more info:
 
-``` r
-head(penguins)
-#> # A tibble: 6 × 8
+``` python
+penguins.head()
 #>   species island bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex  
 #>   <fct>   <fct>           <dbl>         <dbl>            <int>       <int> <fct>
 #> 1 Adelie  Torge…           39.1          18.7              181        3750 male 
@@ -65,11 +43,10 @@ head(penguins)
 ```
 
 The second dataset is `penguins_raw`, and contains all the variables and
-original names as downloaded; see `?penguins_raw` for more info.
+original names as downloaded;
 
-``` r
-head(penguins_raw)
-#> # A tibble: 6 × 17
+``` python
+penguins_raw.head()
 #>   studyName `Sample Number` Species          Region Island Stage `Individual ID`
 #>   <chr>               <dbl> <chr>            <chr>  <chr>  <chr> <chr>          
 #> 1 PAL0708                 1 Adelie Penguin … Anvers Torge… Adul… N1A1           
@@ -88,40 +65,22 @@ Both datasets contain data for 344 penguins. There are 3 different
 species of penguins in this dataset, collected from 3 islands in the
 Palmer Archipelago, Antarctica.
 
-``` r
-str(penguins)
-#> tibble [344 × 8] (S3: tbl_df/tbl/data.frame)
-#>  $ species          : Factor w/ 3 levels "Adelie","Chinstrap",..: 1 1 1 1 1 1 1 1 1 1 ...
-#>  $ island           : Factor w/ 3 levels "Biscoe","Dream",..: 3 3 3 3 3 3 3 3 3 3 ...
-#>  $ bill_length_mm   : num [1:344] 39.1 39.5 40.3 NA 36.7 39.3 38.9 39.2 34.1 42 ...
-#>  $ bill_depth_mm    : num [1:344] 18.7 17.4 18 NA 19.3 20.6 17.8 19.6 18.1 20.2 ...
-#>  $ flipper_length_mm: int [1:344] 181 186 195 NA 193 190 181 195 193 190 ...
-#>  $ body_mass_g      : int [1:344] 3750 3800 3250 NA 3450 3650 3625 4675 3475 4250 ...
-#>  $ sex              : Factor w/ 2 levels "female","male": 2 1 1 NA 1 2 1 2 NA NA ...
-#>  $ year             : int [1:344] 2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...
-```
-
 We gratefully acknowledge Palmer Station LTER and the US LTER Network.
 Special thanks to Marty Downs (Director, LTER Network Office) for help
 regarding the data license & use.
 
 ## Examples
 
-You can find these and more code examples for exploring palmerpenguins
-in `vignette("examples")`.
-
 Penguins are fun to summarize! For example:
 
-``` r
-library(tidyverse)
-penguins %>% 
-  count(species)
-#> # A tibble: 3 × 2
-#>   species       n
-#>   <fct>     <int>
-#> 1 Adelie      152
-#> 2 Chinstrap    68
-#> 3 Gentoo      124
+``` python
+penguins.groupby("species").count()
+
+species
+Adelie    152
+Chinstrap
+Gentoo
+
 penguins %>% 
   group_by(species) %>% 
   summarize(across(where(is.numeric), mean, na.rm = TRUE))
