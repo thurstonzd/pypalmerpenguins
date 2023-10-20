@@ -37,5 +37,18 @@ penguins = (
         body_mass_g=lambda x: pd.to_numeric(x.body_mass_g, errors='coerce')
     ).assign(
         year=lambda x: x.date_egg.apply(lambda a: a.year)
-    ).re
-)
+    ).rename(
+        columns={
+            "culmen_length_mm": "bill_length_mm",
+            "culmen_depth_mm": "bill_depth_mm"
+        }
+    )
+)[[
+    'species', 
+    'island', 
+    'bill_length_mm', 
+    'bill_depth_mm', 
+    'flipper_length_mm', 
+    'body_mass_g', 
+    'sex', 
+    'year']]
